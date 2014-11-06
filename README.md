@@ -11,5 +11,6 @@ Introduction to distributed programming in Java
 - Labs 2 - [threads - synchronization](2-threads-synchronization/README.md)
 - Labs 3 - [threads - higher abstractions](3-threads-higher-abstractions/README.md)
 - Labs 4 - [JMS - basics ](4-JMS-basics/README.md)
+- Labs 5 - [JMS - spring ](5-spring-jms/README.md)
 - Project 1 - [threads - "Charity Flea Market"](projects/1-threads/README.md)
 >>>>>>> 9f3da13f1ae9a8b90daa7fd271249032291d5f9e
