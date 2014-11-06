@@ -1,5 +1,7 @@
 package pl.edu.amu.dji.jms.lab1;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
@@ -22,10 +24,11 @@ public class HelloMain {
         - topic name should be "SayHelloTopic"
          */
 
-        Connection connection = null;
-        Session session = null;
-        Destination queue = null;
-        MessageConsumer consumer = null;
+        Connection connection = connectionFactory.createConnection();
+        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Destination queue = session.createQueue("SayHelloQueue");
+        Destination topic = session.createTopic("SayHelloTopic");
+        MessageConsumer consumer = session.createConsumer(queue);
 
         /*
         Create MessageConsumer instance from session (check Session class and createConsumer method)
@@ -39,12 +42,21 @@ public class HelloMain {
         MessageListener helloListener = new MessageListener() {
             @Override
             public void onMessage(Message message) {
-                throw new UnsupportedOperationException();
+                if (message instanceof TextMessage) {
+                    TextMessage textMessage = (TextMessage) message;
+                    try {
+                        String text = textMessage.getText();
+                        System.out.println(textMessage);
+                    } catch (JMSException ex) {
+                        Logger.getLogger(HelloMain.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             }
         };
 
         //Set MessageListener implementation as a message listener in MessageConsumer
-
+        
+        consumer.setMessageListener(helloListener);
         connection.start();
     }
 }
