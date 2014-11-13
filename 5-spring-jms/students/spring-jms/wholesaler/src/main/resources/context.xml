@@ -20,5 +20,20 @@
     <bean id="offerTopic" class="org.apache.activemq.command.ActiveMQTopic">
         <constructor-arg value="offerTopic"/>
     </bean>
+    
+    <bean class="pl.edu.amu.dji.jms.lab2.wholesaler.service.OfferService" id="offerService">
+        <property name="jmsTemplate" ref="jmsTemplate"/>
+        <property name="offerTopic" ref="offerTopic"/>
+        <property name="orderQueue" ref="orderQueue"/>
+    </bean>
+
+    <bean id="orderService" class="pl.edu.amu.dji.jms.lab2.wholesaler.service.OrderService">
+    </bean>
+
+    <bean id="simpleMessageListenerContainer" class="org.springframework.jms.listener.SimpleMessageListenerContainer">
+        <property name="messageListener" value="buyService"/>
+        <property name="connectionFactory" value="connectionFactory"/>
+        <property name="destination" value="orderQueue"/>
+    </bean>
 
 </beans>

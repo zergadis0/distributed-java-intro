@@ -24,6 +24,7 @@ public class SayMain {
         - set producer delivery mode to non persistent (DeliveryMode.NON_PERSISTENT);
          */
 
+        ConnectionFactory connectionFactory;
         Connection connection = connectionFactory.createConnection();
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
         Destination queue = session.createQueue("SayHelloQueue");
@@ -36,7 +37,7 @@ public class SayMain {
         String in = "";
         while (!in.equalsIgnoreCase(EXIT)) {
             System.out.print("Say hello to:");
-            text = bufferedReader.readLine();
+            String text = bufferedReader.readLine();
 
             //Create TextMessage from session with text variable
             //Send this message to queue (use producer for that)
