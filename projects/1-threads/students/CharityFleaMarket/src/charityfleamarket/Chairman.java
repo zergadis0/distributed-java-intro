@@ -63,19 +63,23 @@ public class Chairman implements Runnable {
     }
     
     public synchronized boolean addProduct(Product product) {
-        if (productsQueue.size() < 10) {
-            productsQueue.add(product);
-            return true;
+        synchronized(productsQueue) {
+            if (productsQueue.size() < 10) {
+                productsQueue.add(product);
+                return true;
+            }
         }
         
         return false;
     }
     
     public synchronized boolean addRecipient(Recipient recipient) {
-        if (registeredRecipients.size() < 10 && !productsQueue.isEmpty()) {
-            registeredRecipients.add(recipient);
-            System.out.println("Registering " + recipient.getName());
-            return true;
+        synchronized(registeredRecipients) {
+            if (registeredRecipients.size() < 10 && !productsQueue.isEmpty()) {
+                registeredRecipients.add(recipient);
+                System.out.println("Registering " + recipient.getName());
+                return true;
+            }
         }
         
         return false;
@@ -95,19 +99,21 @@ public class Chairman implements Runnable {
                 Logger.getLogger(Chairman.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (registeredRecipients.size() > 0 && productsQueue.size() > 0) {
-                Random rand = new Random();
-                Recipient winner = registeredRecipients.get(rand.nextInt(registeredRecipients.size()));
-                
-                System.out.println("Winner for auction " + productsQueue.element().getName() + " is " + winner.getName());
-                
-                for (Recipient r : registeredRecipients) {
-                    if (r == winner)
-                        r.addProduct(productsQueue.element());
-                    else r.notifyAboutFailure();
+                synchronized(registeredRecipients) {
+                    Random rand = new Random();
+                    Recipient winner = registeredRecipients.get(rand.nextInt(registeredRecipients.size()));
+
+                    System.out.println("Winner for auction " + productsQueue.element().getName() + " is " + winner.getName());
+
+                    for (Recipient r : registeredRecipients) {
+                        if (r == winner)
+                            r.addProduct(productsQueue.element());
+                        else r.notifyAboutFailure();
+                    }
+
+                    productsQueue.remove();
+                    registeredRecipients.clear();
                 }
-                
-                productsQueue.remove();
-                registeredRecipients.clear();
             }
             else if (registeredRecipients.isEmpty() && !productsQueue.isEmpty()) {
                 System.out.println("There is no winner for " + productsQueue.element().getName());
