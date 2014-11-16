@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class Donor implements Runnable {
     private String name;
-    private List<Product> products;
+    private volatile List<Product> products;
 
     public Donor(String name) {
         this.name = name;

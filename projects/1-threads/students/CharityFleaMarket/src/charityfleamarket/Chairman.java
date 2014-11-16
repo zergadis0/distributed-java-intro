@@ -19,10 +19,10 @@ import java.util.logging.Logger;
  * @author Uczelnia
  */
 public class Chairman implements Runnable {
-    private Queue<Product> productsQueue;
-    private List<Recipient> registeredRecipients;
+    private volatile Queue<Product> productsQueue;
+    private volatile List<Recipient> registeredRecipients;
     private MarketManager marketManager;
-    private boolean run;
+    private volatile boolean run;
     
     private static Chairman instance;
     
@@ -62,7 +62,7 @@ public class Chairman implements Runnable {
         
     }
     
-    public boolean addProduct(Product product) {
+    public synchronized boolean addProduct(Product product) {
         if (productsQueue.size() < 10) {
             productsQueue.add(product);
             return true;
@@ -71,7 +71,7 @@ public class Chairman implements Runnable {
         return false;
     }
     
-    public boolean addRecipient(Recipient recipient) {
+    public synchronized boolean addRecipient(Recipient recipient) {
         if (registeredRecipients.size() < 10 && !productsQueue.isEmpty()) {
             registeredRecipients.add(recipient);
             System.out.println("Registering " + recipient.getName());

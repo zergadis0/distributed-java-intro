@@ -18,9 +18,9 @@ import java.util.logging.Logger;
  */
 public class Recipient implements Runnable {
     private String name;
-    private List<Product> wonProducts;
-    private boolean waitingForAucutionFinish;
-    private boolean wonLastAuction;
+    private volatile List<Product> wonProducts;
+    private volatile boolean waitingForAucutionFinish;
+    private volatile boolean wonLastAuction;
 
     public Recipient(String name) {
         this.name = name;
