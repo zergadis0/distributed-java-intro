@@ -4,6 +4,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 
 import javax.jms.*;
+import org.springframework.transaction.annotation.Transactional;
 
 public class OfferService {
 
@@ -25,6 +26,7 @@ public class OfferService {
         this.orderQueue = orderQueue;
     }
 
+    @Transactional
     public void sendOffer(final Double price){
         jmsTemplate.send(offerTopic, new MessageCreator() {
             @Override

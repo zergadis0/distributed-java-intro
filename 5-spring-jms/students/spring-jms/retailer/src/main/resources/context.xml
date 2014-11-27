@@ -19,12 +19,13 @@
     
     <bean id="buyService" class="pl.edu.amu.dji.jms.lab2.retailer.service.BuyService">
         <property name="jmsTemplate" ref="jmsTemplate"/>
+        <property name="maxPrice" value="10d"/>
     </bean>
     
     <bean id="simpleMessageListenerContainer" class="org.springframework.jms.listener.SimpleMessageListenerContainer">
-        <property name="messageListener" value="buyService"/>
-        <property name="connectionFactory" value="connectionFactory"/>
-        <property name="destination" value="offerTopic"/>
+        <property name="messageListener" ref="buyService"/>
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="destination" ref="offerTopic"/>
     </bean>
 
 </beans>

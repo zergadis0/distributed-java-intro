@@ -31,9 +31,9 @@
     </bean>
 
     <bean id="simpleMessageListenerContainer" class="org.springframework.jms.listener.SimpleMessageListenerContainer">
-        <property name="messageListener" value="buyService"/>
-        <property name="connectionFactory" value="connectionFactory"/>
-        <property name="destination" value="orderQueue"/>
+        <property name="messageListener" ref="orderService"/>
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="destination" ref="orderQueue"/>
     </bean>
 
 </beans>

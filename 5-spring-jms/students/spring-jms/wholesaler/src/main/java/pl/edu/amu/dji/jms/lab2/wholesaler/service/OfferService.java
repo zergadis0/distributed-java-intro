@@ -34,7 +34,7 @@ public class OfferService {
             public Message createMessage(Session sn) throws JMSException {
                 MapMessage mapMessage = sn.createMapMessage();
                 mapMessage.setDouble("price", price);
-                mapMessage.setJMSReplyTo(offerTopic);
+                mapMessage.setJMSReplyTo(orderQueue);
                 return mapMessage;
             }
         });

@@ -1,3 +1,5 @@
 target
 .idea
 *.iml
+/projects/1-threads/students/CharityFleaMarket/nbproject/private/
+/projects/1-threads/students/CharityFleaMarket/build/
