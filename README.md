@@ -16,6 +16,7 @@ Introduction to distributed programming in Java
 - Labs 7 - [JMS - summary and project kickoff](7-JMS-summary-and-project-kickoff/README.md)
 - Labs 8 - [rest - basics](8-rest-basics/README.md)
 - Labs 9 - [rest - consumption](9-rest-consumption/README.md)
+- Labs 10 - [rest - web service](https://github.com/bsodzik/distributed-java-intro/blob/master/10-rest-web-service/README.md)
 - Project 1 - [threads - "Charity Flea Market"](projects/1-threads/README.md)
 <<<<<<< HEAD
 >>>>>>> 9f3da13f1ae9a8b90daa7fd271249032291d5f9e
