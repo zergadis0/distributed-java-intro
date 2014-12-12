@@ -24,6 +24,8 @@
         <org.apache.activemq>5.9.0</org.apache.activemq>
         <org.apache.commons>3.3.2</org.apache.commons>
         <com.google.guava>18.0</com.google.guava>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
